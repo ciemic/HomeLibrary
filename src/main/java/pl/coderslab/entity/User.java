@@ -1,29 +1,95 @@
 package pl.coderslab.entity;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User extends SuperEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
+    @NotBlank
     private String username;
+    @NotBlank
     private String password;
+    @Email
+    private String email;
+
+    private Boolean enabled;
+    private String firstName;
+    private String lastName;
+    private String role; // ( admin / user)
+
+    @Column(columnDefinition = "sent_messages")
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.REMOVE)
+    private List<Message> sentMessages;
+    @Column(columnDefinition = "received_messages")
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.REMOVE)
+    private List<Message> receivedMessages;
+
 
     public User() {
     }
 
-    public Long getId() {
-        return id;
+    public String getEmail() {
+        return email;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setEmail(String email) {
+        this.email = email;
     }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public List<Message> getSentMessages() {
+        return sentMessages;
+    }
+
+    public void setSentMessages(List<Message> sentMessages) {
+        this.sentMessages = sentMessages;
+    }
+
+    public List<Message> getReceivedMessages() {
+        return receivedMessages;
+    }
+
+    public void setReceivedMessages(List<Message> receivedMessages) {
+        this.receivedMessages = receivedMessages;
+    }
+
 
     public String getUsername() {
         return username;

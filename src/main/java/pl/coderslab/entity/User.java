@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "user")
-public class User extends SuperEntity {
+public class User extends AbstractEntity {
 
 
     @NotBlank

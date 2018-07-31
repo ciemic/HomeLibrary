@@ -1,5 +1,8 @@
 package pl.coderslab.entity;
 
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 
 import java.util.List;
@@ -7,16 +10,22 @@ import java.util.List;
 
 @Entity
 @Table(name = "book")
-public class Book extends SuperEntity {
+public class Book extends AbstractEntity {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @NotBlank
     private String title;
+    @NotBlank
     private String isbn;
     private String barcode;
     private String description;
     @ManyToMany
+    @NotEmpty
     private List<Author> authors;
     @ManyToMany
+    @NotEmpty
     private List<Category> categories;
     @ManyToOne
     private User currentUser;
@@ -89,5 +98,13 @@ public class Book extends SuperEntity {
 
     public void setAuthors(List<Author> authors) {
         this.authors = authors;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

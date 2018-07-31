@@ -18,6 +18,7 @@ public class Book extends AbstractEntity {
     @NotBlank
     private String title;
     @NotBlank
+    @Column(unique = true)
     private String isbn;
     private String barcode;
     private String description;

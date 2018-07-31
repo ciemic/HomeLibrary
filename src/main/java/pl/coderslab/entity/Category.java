@@ -13,6 +13,7 @@ public class Category extends AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank
+    @Column( unique = true)
     private String name;
 
     @ManyToMany

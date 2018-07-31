@@ -10,12 +10,16 @@ import java.util.List;
 @Table(name = "user")
 public class User extends AbstractEntity {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @NotBlank
+    @Column( unique = true)
     private String username;
     @NotBlank
     private String password;
     @Email
+    @Column( unique = true)
     private String email;
 
     private Boolean enabled;

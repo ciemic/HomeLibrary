@@ -2,17 +2,18 @@ package pl.coderslab.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @MappedSuperclass
 public abstract class AbstractEntity {
 
     @Column(name = "creation_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime creationDate;
+    private Date creationDate;
 
     @Column(name = "last_modification_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime lastModificationDate;
+    private Date lastModificationDate;
     /*
         Na poziomie bazy danych kolumna powinna być utworzona tak:
 
@@ -24,11 +25,11 @@ public abstract class AbstractEntity {
 
     @PrePersist
     public void prePersist() {
-        creationDate = LocalDateTime.now();
+        creationDate = new Date();
     }
 
     @PreUpdate
     public void preUpdate() {
-        lastModificationDate = LocalDateTime.now();
+        lastModificationDate = new Date();
     }
 }

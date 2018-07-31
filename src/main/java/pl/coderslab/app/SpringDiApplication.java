@@ -8,6 +8,7 @@ public class SpringDiApplication {
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
         ctx.register(AppConfig.class);
         ctx.register(ConverterConfig.class);
+   //     ctx.register(MvcConfig.class);
     }
 
 }

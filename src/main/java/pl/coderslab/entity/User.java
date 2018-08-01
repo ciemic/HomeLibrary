@@ -13,19 +13,18 @@ public class User extends AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotBlank
-    @Column( unique = true)
+    @Column(unique = true)
     private String username;
-    @NotBlank
-    private String password;
+
     @Email
-    @Column( unique = true)
+    @Column(unique = true)
     private String email;
 
     private Boolean enabled;
     private String firstName;
     private String lastName;
-    private String role; // ( admin / user)
 
     @Column(columnDefinition = "sent_messages")
     @OneToMany(mappedBy = "sender", cascade = CascadeType.REMOVE)
@@ -70,13 +69,6 @@ public class User extends AbstractEntity {
         this.lastName = lastName;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 
     public List<Message> getSentMessages() {
         return sentMessages;
@@ -103,11 +95,5 @@ public class User extends AbstractEntity {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

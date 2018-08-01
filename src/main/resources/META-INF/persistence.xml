@@ -8,10 +8,16 @@
 
         <properties>
             <property name="javax.persistence.jdbc.url"
-                      value="jdbc:mysql://localhost:3306/home_library" />
+                      value="jdbc:mysql://localhost:3306/home_library?useSSL=false" />
             <property name="javax.persistence.jdbc.user" value="root" />
             <property name="javax.persistence.jdbc.password" value="coderslab" />
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+
+            <property name="javax.persistence.connection.pool.initialPoolSize" value="5"/>
+            <property name="javax.persistence.connection.pool.minPoolSize" value="5"/>
+            <property name="javax.persistence.connection.pool.maxPoolSize" value="20"/>
+            <property name="javax.persistence.connection.pool.maxIdleTime" value="3000"/>
+
             <property name="javax.persistence.schema-generation.database.action" value="create"/>
 
             <property name="hibernate.hbm2ddl.auto" value="update"/>

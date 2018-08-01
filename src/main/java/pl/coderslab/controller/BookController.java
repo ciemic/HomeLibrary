@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.coderslab.dto.BookDto;
 import pl.coderslab.entity.Book;
 import pl.coderslab.repository.BookRepository;
+import pl.coderslab.service.BookService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -18,12 +20,13 @@ import java.util.List;
 @Controller
 @RequestMapping("/book")
 public class BookController {
+
     @Autowired
-    BookRepository bookRepository;
+    BookService bookService;
 
     @ModelAttribute("books")
-    public List<Book> modelPublishers() {
-        return (List<Book>) bookRepository.findAll();
+    public List<BookDto> modelPublishers() {
+        return (List<BookDto>) bookService.findAll();
     }
 
     @GetMapping("")
@@ -39,11 +42,11 @@ public class BookController {
     }
 
     @PostMapping("/form")
-    public String form(@Valid Book book, BindingResult validResult) {
+    public String form(@Valid BookDto book, BindingResult validResult) {
         if (validResult.hasErrors()) {
             return "book/form";
         }
-        bookRepository.save(book);
+        bookService.addBook(book);
         return "redirect:/book";
     }
 }

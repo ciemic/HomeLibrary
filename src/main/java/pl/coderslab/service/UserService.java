@@ -44,5 +44,22 @@ public class UserService {
         return new UserDto(loggedUser);
     }
 
+    public void deleteUser(UserDto userDto) {
+        User user = userRepository.findByUsername(userDto.getUsername());
+
+        userRepository.delete(user);
+    }
+
+    public void editUser(UserDto userDto) {
+        User user = userRepository.findByUsername(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+
+        userRepository.save(user);
+    }
+
+
+
 
 }

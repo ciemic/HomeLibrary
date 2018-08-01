@@ -2,6 +2,9 @@ package pl.coderslab.entity;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.beans.factory.annotation.Autowired;
+import pl.coderslab.dto.BookDto;
+import pl.coderslab.repository.UserRepository;
 
 import javax.persistence.*;
 
@@ -35,6 +38,7 @@ public class Book extends AbstractEntity {
 
     public Book() {
     }
+
 
     public String getTitle() {
         return title;

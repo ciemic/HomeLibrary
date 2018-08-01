@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookDto extends AbstractEntity {
+public class BookDto {
 
 
     private Long id;
@@ -19,11 +19,11 @@ public class BookDto extends AbstractEntity {
     private String barcode;
     private String description;
     @NotEmpty
-    private List<AuthorDto> authors;
+    private List<Author> authors;
     @NotEmpty
-    private List<CategoryDto> categories;
+    private List<Category> categories;
     private String currentUser;
-    private String locationInLibrary;
+    private Location locationInLibrary;
 
     public BookDto(Book book) {
         setId(book.getId());
@@ -31,17 +31,12 @@ public class BookDto extends AbstractEntity {
         setIsbn(book.getIsbn());
         setBarcode(book.getBarcode());
         setDescription(book.getDescription());
-        List<AuthorDto> authorDtos = new ArrayList<>();
-        for (Author author : book.getAuthors())
-            authorDtos.add(new AuthorDto(author));
-        setAuthors(authorDtos);
 
-        List<CategoryDto> categoryDtos = new ArrayList<>();
-        for (Category category : book.getCategories())
-            categoryDtos.add(new CategoryDto(category));
-        setCategories(categoryDtos);
+        setAuthors(book.getAuthors());
 
-        setLocationInLibrary(book.getLocationInLibrary().toString());
+        setCategories(book.getCategories());
+
+        setLocationInLibrary(book.getLocationInLibrary());
         setCurrentUser(book.getCurrentUser().getUsername());
     }
 
@@ -78,11 +73,11 @@ public class BookDto extends AbstractEntity {
         this.description = description;
     }
 
-    public List<CategoryDto> getCategories() {
+    public List<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<CategoryDto> categories) {
+    public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
 
@@ -94,19 +89,19 @@ public class BookDto extends AbstractEntity {
         this.currentUser = currentUser;
     }
 
-    public String getLocationInLibrary() {
+    public Location getLocationInLibrary() {
         return locationInLibrary;
     }
 
-    public void setLocationInLibrary(String locationInLibrary) {
+    public void setLocationInLibrary(Location locationInLibrary) {
         this.locationInLibrary = locationInLibrary;
     }
 
-    public List<AuthorDto> getAuthors() {
+    public List<Author> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(List<AuthorDto> authors) {
+    public void setAuthors(List<Author> authors) {
         this.authors = authors;
     }
 

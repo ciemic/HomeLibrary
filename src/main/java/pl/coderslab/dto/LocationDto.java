@@ -1,14 +1,12 @@
-package pl.coderslab.entity;
+package pl.coderslab.dto;
 
 import org.hibernate.validator.constraints.NotBlank;
+import pl.coderslab.entity.AbstractEntity;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "location")
-public class Location extends AbstractEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class LocationDto {
+
     private Long id;
     @NotBlank
     private String shelf;
@@ -36,14 +34,5 @@ public class Location extends AbstractEntity {
 
     public void setDetails(String details) {
         this.details = details;
-    }
-
-    @Override
-    public String toString() {
-        return "Location{" +
-                "id=" + id +
-                ", shelf='" + shelf + '\'' +
-                ", details='" + details + '\'' +
-                '}';
     }
 }

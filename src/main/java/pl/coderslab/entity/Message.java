@@ -4,11 +4,10 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "message")
-public class Message {
+public class Message extends AbstractEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,9 +19,9 @@ public class Message {
     private User receiver;
     @NotBlank
     private String messageText;
-    private LocalDate created;
 
     public Message() {
+
     }
 
     public Long getId() {
@@ -59,11 +58,5 @@ public class Message {
         this.messageText = messageText;
     }
 
-    public LocalDate getCreated() {
-        return created;
-    }
 
-    public void setCreated(LocalDate created) {
-        this.created = created;
-    }
 }

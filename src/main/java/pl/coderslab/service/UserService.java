@@ -4,6 +4,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import pl.coderslab.dto.UserDto;
 import pl.coderslab.entity.User;
 import pl.coderslab.repository.UserRepository;
 import org.springframework.security.core.userdetails.*;
@@ -13,9 +14,6 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
-
-
-
 
 //    public void addUser(User user){
 //        String hashedPassword = BCrypt.hashpw( user.getPassword(), BCrypt.gensalt());
@@ -31,19 +29,19 @@ public class UserService {
 //        return false;
 //    }
 
-    public User getLoggedUser(){
+    public UserDto getLoggedUser() {
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         String username;
         if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
+            username = ((UserDetails) principal).getUsername();
         } else {
             username = principal.toString();
         }
         User loggedUser = userRepository.findByUsername(username);
 
-        return loggedUser;
+        return new UserDto(loggedUser);
     }
 
 

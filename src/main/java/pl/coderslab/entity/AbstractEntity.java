@@ -14,6 +14,8 @@ public abstract class AbstractEntity {
     @Column(name = "last_modification_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModificationDate;
+
+
     /*
         Na poziomie bazy danych kolumna powinna być utworzona tak:
 
@@ -31,5 +33,30 @@ public abstract class AbstractEntity {
     @PreUpdate
     public void preUpdate() {
         lastModificationDate = new Date();
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+
+    }
+
+    public Date getLastModificationDate() {
+        return lastModificationDate;
+    }
+
+    public void setLastModificationDate(Date lastModificationDate) {
+        this.lastModificationDate = lastModificationDate;
+    }
+
+    public Long getVersionId() {
+        return versionId;
+    }
+
+    public void setVersionId(Long versionId) {
+        this.versionId = versionId;
     }
 }

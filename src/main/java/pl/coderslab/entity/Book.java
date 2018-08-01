@@ -2,12 +2,10 @@ package pl.coderslab.entity;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.beans.factory.annotation.Autowired;
-import pl.coderslab.dto.BookDto;
-import pl.coderslab.repository.UserRepository;
 
 import javax.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -35,6 +33,8 @@ public class Book extends AbstractEntity {
     private User currentUser;
     @ManyToOne
     private Location locationInLibrary;
+
+    private LocalDateTime borrowDate;
 
     public Book() {
     }
@@ -111,5 +111,13 @@ public class Book extends AbstractEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public LocalDateTime getBorrowDate() {
+        return borrowDate;
+    }
+
+    public void setBorrowDate(LocalDateTime borrowingDate) {
+        this.borrowDate = borrowingDate;
     }
 }

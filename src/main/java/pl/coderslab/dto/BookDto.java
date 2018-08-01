@@ -4,7 +4,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import pl.coderslab.entity.*;
 
-import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +19,12 @@ public class BookDto {
     private String barcode;
     private String description;
     @NotEmpty
-    private List<Author> authors;
+    private List<AuthorDto> authors;
     @NotEmpty
-    private List<Category> categories;
+    private List<CategoryDto> categories;
     private String currentUser;
-    private Location locationInLibrary;
+    private LocationDto locationInLibrary;
+    private LocalDateTime borrowDate;
 
     public BookDto(Book book) {
         setId(book.getId());
@@ -32,12 +33,20 @@ public class BookDto {
         setBarcode(book.getBarcode());
         setDescription(book.getDescription());
 
-        setAuthors(book.getAuthors());
+        List<AuthorDto> authorDtos = new ArrayList<>();
+        for (Author author : book.getAuthors())
+            authorDtos.add(new AuthorDto(author));
+        setAuthors(authorDtos);
 
-        setCategories(book.getCategories());
+        List<CategoryDto> categoryDtos = new ArrayList<>();
+        for (Category category : book.getCategories())
+            categoryDtos.add(new CategoryDto(category));
+        setCategories(categoryDtos);
 
-        setLocationInLibrary(book.getLocationInLibrary());
+        setLocationInLibrary(new LocationDto(book.getLocationInLibrary()));
+
         setCurrentUser(book.getCurrentUser().getUsername());
+        setBorrowDate(book.getBorrowDate());
     }
 
     public String getTitle() {
@@ -73,11 +82,11 @@ public class BookDto {
         this.description = description;
     }
 
-    public List<Category> getCategories() {
+    public List<CategoryDto> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<Category> categories) {
+    public void setCategories(List<CategoryDto> categories) {
         this.categories = categories;
     }
 
@@ -89,19 +98,19 @@ public class BookDto {
         this.currentUser = currentUser;
     }
 
-    public Location getLocationInLibrary() {
+    public LocationDto getLocationInLibrary() {
         return locationInLibrary;
     }
 
-    public void setLocationInLibrary(Location locationInLibrary) {
+    public void setLocationInLibrary(LocationDto locationInLibrary) {
         this.locationInLibrary = locationInLibrary;
     }
 
-    public List<Author> getAuthors() {
+    public List<AuthorDto> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(List<Author> authors) {
+    public void setAuthors(List<AuthorDto> authors) {
         this.authors = authors;
     }
 
@@ -111,5 +120,13 @@ public class BookDto {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public LocalDateTime getBorrowDate() {
+        return borrowDate;
+    }
+
+    public void setBorrowDate(LocalDateTime borrowDate) {
+        this.borrowDate = borrowDate;
     }
 }

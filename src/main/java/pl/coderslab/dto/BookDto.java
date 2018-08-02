@@ -2,12 +2,14 @@ package pl.coderslab.dto;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.stereotype.Component;
 import pl.coderslab.entity.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class BookDto {
 
 
@@ -47,6 +49,10 @@ public class BookDto {
 
         setCurrentUser(book.getCurrentUser().getUsername());
         setBorrowDate(book.getBorrowDate());
+    }
+
+    public BookDto() {
+
     }
 
     public String getTitle() {

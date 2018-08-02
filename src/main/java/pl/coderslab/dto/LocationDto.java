@@ -19,6 +19,9 @@ public class LocationDto  {
         setShelf(location.getShelf());
     }
 
+    public LocationDto() {
+    }
+
     public Long getId() {
         return id;
     }

@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.dto.BookDto;
-import pl.coderslab.entity.Book;
-import pl.coderslab.repository.BookRepository;
 import pl.coderslab.service.BookService;
 
 import javax.validation.Valid;
@@ -37,7 +35,7 @@ public class BookController {
 
     @GetMapping("/form")
     public String form(Model model) {
-        model.addAttribute("book", new Book());
+        model.addAttribute("book", new BookDto());
         return "book/form";
     }
 

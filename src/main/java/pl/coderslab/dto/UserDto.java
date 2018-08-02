@@ -44,6 +44,9 @@ public class UserDto {
         setReceivedMessages(messages);
     }
 
+    public UserDto() {
+    }
+
     public String getEmail() {
         return email;
     }

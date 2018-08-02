@@ -5,5 +5,5 @@ import pl.coderslab.entity.Book;
 import pl.coderslab.entity.Category;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
-    Book findById(Long valueOf);
+    Category findById(Long valueOf);
 }

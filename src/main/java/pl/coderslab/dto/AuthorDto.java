@@ -32,6 +32,9 @@ public class AuthorDto extends AbstractEntity {
         setId(author.getId());
     }
 
+    public AuthorDto() {
+    }
+
 
     public String getFirstName() {
         return firstName;

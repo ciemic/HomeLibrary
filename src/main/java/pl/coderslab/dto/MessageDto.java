@@ -26,6 +26,9 @@ public class MessageDto {
         setCreated(message.getCreationDate());
     }
 
+    public MessageDto() {
+    }
+
 
     @NotNull
     public UserDto getSender() {

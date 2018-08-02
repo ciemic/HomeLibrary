@@ -27,6 +27,9 @@ public class CategoryDto {
         setName(category.getName());
     }
 
+    public CategoryDto() {
+    }
+
 
     public Long getId() {
         return id;

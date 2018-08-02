@@ -16,12 +16,16 @@ public class CategoryDto {
     @NotBlank
     private String name;
 
-    private List<BookDto> books;
+    private List<SimpleBookDto> books;
 
     public CategoryDto(Category category) {
-        List<BookDto> booksDto = new ArrayList<>();
-        for (Book book : category.getBooks())
-            booksDto.add(new BookDto(book));
+        List<SimpleBookDto> booksDto = new ArrayList<>();
+        for (Book book : category.getBooks()) {
+            SimpleBookDto simpleBookDto = new SimpleBookDto();
+            simpleBookDto.setIsbn(book.getIsbn());
+            simpleBookDto.setTitle(book.getTitle());
+            booksDto.add(simpleBookDto);
+        }
         setBooks(booksDto);
         setId(category.getId());
         setName(category.getName());
@@ -47,11 +51,11 @@ public class CategoryDto {
         this.name = name;
     }
 
-    public List<BookDto> getBooks() {
+    public List<SimpleBookDto> getBooks() {
         return books;
     }
 
-    public void setBooks(List<BookDto> books) {
+    public void setBooks(List<SimpleBookDto> books) {
         this.books = books;
     }
 }

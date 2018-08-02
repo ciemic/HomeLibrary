@@ -4,13 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import pl.coderslab.dto.BookDto;
+import org.springframework.web.bind.annotation.*;
+import pl.coderslab.dto.*;
+import pl.coderslab.service.AuthorService;
 import pl.coderslab.service.BookService;
+import pl.coderslab.service.CategoryService;
+import pl.coderslab.service.UserService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -22,10 +21,30 @@ public class BookController {
     @Autowired
     BookService bookService;
 
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    AuthorService authorService;
+
+    @Autowired
+    CategoryService categoryService;
+
     @ModelAttribute("books")
-    public List<BookDto> modelPublishers() {
-        return (List<BookDto>) bookService.findAll();
+    public List<BookDto> modelBooks() {
+        return bookService.findAll();
     }
+
+    @ModelAttribute("authors")
+    public List<NewAuthorDto> modelAuthors() {
+        return authorService.findNewAll();
+    }
+
+    @ModelAttribute("categories")
+    public List<NewCategoryDto> modelCategories() {
+        return categoryService.findNewAll();
+    }
+
 
     @GetMapping("")
     public String showLibrary() {
@@ -35,16 +54,31 @@ public class BookController {
 
     @GetMapping("/form")
     public String form(Model model) {
-        model.addAttribute("book", new BookDto());
+        model.addAttribute("book", new NewBookDto());
         return "book/form";
     }
 
     @PostMapping("/form")
-    public String form(@Valid BookDto book, BindingResult validResult) {
+    public String form(@Valid NewBookDto book, BindingResult validResult, Model model) {
         if (validResult.hasErrors()) {
+            model.addAttribute("book", book);
             return "book/form";
         }
-        bookService.addBook(book);
+        bookService.addNewBook(book);
+        return "redirect:/book";
+    }
+
+    @GetMapping("/borrow/{id}")
+    public String borrowBook(@PathVariable Long id) {
+        bookService.addCurrentUser(id);
+
+        return "redirect:/book";
+    }
+
+    @GetMapping("/return/{id}")
+    public String returnBook(@PathVariable Long id) {
+        bookService.deleteCurrentUser(id);
+
         return "redirect:/book";
     }
 }

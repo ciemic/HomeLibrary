@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class AuthorDto extends AbstractEntity {
+public class AuthorDto {
 
 
     private Long id;
@@ -19,20 +19,26 @@ public class AuthorDto extends AbstractEntity {
     @NotBlank
     private String lastName;
 
-    private List<BookDto> books = new ArrayList<>();
+    private List<SimpleBookDto> books = new ArrayList<>();
 
     public AuthorDto(Author author) {
-        List<BookDto> bookDtos = new ArrayList<>();
-        for (Book book : author.getBooks())
-            bookDtos.add(new BookDto(book));
+        List<SimpleBookDto> bookDtos = new ArrayList<>();
+        for (Book book : author.getBooks()) {
+            SimpleBookDto simpleBook = new SimpleBookDto();
+            bookDtos.add(simpleBook);
+        }
         setBooks(bookDtos);
-
         setLastName(author.getLastName());
         setFirstName(author.getFirstName());
         setId(author.getId());
     }
 
     public AuthorDto() {
+    }
+
+    public AuthorDto(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
 
@@ -52,13 +58,6 @@ public class AuthorDto extends AbstractEntity {
         this.lastName = lastName;
     }
 
-    public List<BookDto> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<BookDto> books) {
-        this.books = books;
-    }
 
     public Long getId() {
         return id;
@@ -66,5 +65,13 @@ public class AuthorDto extends AbstractEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<SimpleBookDto> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<SimpleBookDto> books) {
+        this.books = books;
     }
 }

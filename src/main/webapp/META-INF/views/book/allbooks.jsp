@@ -9,22 +9,71 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <title>Title</title>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <style rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+    <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"/>
+    <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
 </head>
-<body>
+<body class="dataTables">
+<div class="table-responsive">
+    <div class="button"> <a href="/book/form">add new book</a></div>
 
-<ul>
-    <c:forEach items="${books}" var="book">
-        <li>${book.title}
-            <%--<br><c:forEach items="${book.authors}" var="author">--%>
-                <%--<br>author: ${author.firstName} ${author.lastName}, categories:--%>
-                <%--<br><c:forEach items="${book.categories}" var="category"> ${category.name}</c:forEach>--%>
-            <%--</c:forEach>--%>
-                <%--&lt;%&ndash;<br><a href="${pageContext.request.contextPath}/book/edit/${book.id}">edit</a>&ndash;%&gt;--%>
-                <%--<a href="${pageContext.request.contextPath}/book/delete/${book.id}">delete</a>--%>
-        </li>
-    </c:forEach>
-</ul>
+    <table id="myTable" class="table table-striped">
+        <thead>
 
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th>Publisher</th>
+            <th>Current user</th>
+            <th>details</th>
+            <th>Borrow</th>
+            <th>Return</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${books}" var="book">
+            <tr>
+                <td>${book.id}</td>
+                <td>${book.title}</td>
+                <td>
+                    <c:forEach items="${book.authors}" var="author">
+                        ${author.firstName} ${author.lastName},<br>
+                    </c:forEach>
+                </td>
+                <td>
+                    <c:forEach items="${book.categories}" var="category">
+                        ${category.name},
+                    </c:forEach>
+                </td>
+                <td>${book.publisher}</td>
+                <td>${book.currentUser.username}</td>
+                <td>
+                    <a href="/book/details/${book.id}">details</a>
+                </td>
+                <td>
+                    <a href="/book/borrow/${book.id}">borrow</a>
+                </td>
+                <td>
+                    <a href="/book/return/${book.id}">return</a>
+                </td>
+            </tr>
+        </c:forEach>
+
+        </tbody>
+    </table>
+
+</div>
 </body>
+<script>
+    $(document).ready(function () {
+        $('#myTable').dataTable();
+    });
+</script>
 </html>

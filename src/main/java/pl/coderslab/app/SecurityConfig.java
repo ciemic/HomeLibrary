@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
 
@@ -17,6 +18,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     DataSource securityDataSource;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
@@ -24,7 +28,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         auth.jdbcAuthentication().dataSource(securityDataSource)
                 .usersByUsernameQuery("select username,password,true from users where username=?")
-                .authoritiesByUsernameQuery("select username, authority from authorities where username=?");
+                .authoritiesByUsernameQuery("select username, authority from authorities where username=?")
+                .passwordEncoder(passwordEncoder)
+        ;
 
 
     }
@@ -36,9 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
 
                 //.anyRequest().authenticated()
-                .antMatchers("/").hasRole("EMPLOYEE")
-                .antMatchers("/leaders/**").hasRole("MANAGER")
+                .antMatchers("/**").hasRole("USER")
                 .antMatchers("/systems/**").hasRole("ADMIN")
+                .antMatchers("/register/**").permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/showMyLoginPage")

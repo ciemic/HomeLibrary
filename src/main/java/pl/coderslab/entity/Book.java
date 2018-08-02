@@ -18,7 +18,6 @@ public class Book extends AbstractEntity {
     private Long id;
     @NotBlank
     private String title;
-    @NotBlank
     @Column(unique = true)
     private String isbn;
     private String barcode;
@@ -33,6 +32,7 @@ public class Book extends AbstractEntity {
     private User currentUser;
     @ManyToOne
     private Location locationInLibrary;
+    private String publisher;
 
     private LocalDateTime borrowDate;
 
@@ -119,5 +119,13 @@ public class Book extends AbstractEntity {
 
     public void setBorrowDate(LocalDateTime borrowingDate) {
         this.borrowDate = borrowingDate;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
     }
 }

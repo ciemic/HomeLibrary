@@ -1,31 +1,32 @@
-package pl.coderslab.entity;
+package pl.coderslab.dto;
 
 import org.hibernate.validator.constraints.NotBlank;
+import pl.coderslab.entity.AbstractEntity;
+import pl.coderslab.entity.Author;
+import pl.coderslab.entity.Book;
 
-import javax.persistence.*;
-import javax.validation.Constraint;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "author")
-public class Author extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class NewAuthorDto {
+
     private Long id;
     @NotBlank
-    @Column(name = "first_name")
     private String firstName;
     @NotBlank
-    @Column(name = "last_name")
     private String lastName;
 
-    @ManyToMany(mappedBy = "authors")
-    private List<Book> books = new ArrayList<>();
 
-    public Author() {
+    public NewAuthorDto(Author author) {
+        setId(author.getId());
+        setLastName(author.getLastName());
+        setFirstName(author.getFirstName());
     }
+
+    public NewAuthorDto() {
+    }
+
 
     public String getFirstName() {
         return firstName;
@@ -41,14 +42,6 @@ public class Author extends AbstractEntity {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
     }
 
     public Long getId() {

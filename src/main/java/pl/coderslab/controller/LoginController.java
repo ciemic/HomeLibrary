@@ -11,7 +11,6 @@ public class LoginController {
     }
 
     @GetMapping("")
-
     public String test(){
         return "home";
     }

@@ -16,17 +16,17 @@ public class BookDto {
     private Long id;
     @NotBlank
     private String title;
-    @NotBlank
     private String isbn;
     private String barcode;
     private String description;
     @NotEmpty
-    private List<AuthorDto> authors;
+    private List<NewAuthorDto> authors;
     @NotEmpty
-    private List<CategoryDto> categories;
-    private String currentUser;
+    private List<NewCategoryDto> categories;
+    private UserDtoName currentUser;
     private LocationDto locationInLibrary;
-    private LocalDateTime borrowDate;
+    private String publisher;
+
 
     public BookDto(Book book) {
         setId(book.getId());
@@ -35,24 +35,22 @@ public class BookDto {
         setBarcode(book.getBarcode());
         setDescription(book.getDescription());
 
-        List<AuthorDto> authorDtos = new ArrayList<>();
+        List<NewAuthorDto> authorDtos = new ArrayList<>();
         for (Author author : book.getAuthors())
-            authorDtos.add(new AuthorDto(author));
+            authorDtos.add(new NewAuthorDto(author));
         setAuthors(authorDtos);
 
-        List<CategoryDto> categoryDtos = new ArrayList<>();
+        List<NewCategoryDto> categoryDtos = new ArrayList<>();
         for (Category category : book.getCategories())
-            categoryDtos.add(new CategoryDto(category));
+            categoryDtos.add(new NewCategoryDto(category));
         setCategories(categoryDtos);
 
         setLocationInLibrary(new LocationDto(book.getLocationInLibrary()));
-
-        setCurrentUser(book.getCurrentUser().getUsername());
-        setBorrowDate(book.getBorrowDate());
+        setCurrentUser(new UserDtoName(book.getCurrentUser()));
+        setPublisher(book.getPublisher());
     }
 
     public BookDto() {
-
     }
 
     public String getTitle() {
@@ -88,19 +86,12 @@ public class BookDto {
         this.description = description;
     }
 
-    public List<CategoryDto> getCategories() {
-        return categories;
-    }
 
-    public void setCategories(List<CategoryDto> categories) {
-        this.categories = categories;
-    }
-
-    public String getCurrentUser() {
+    public UserDtoName getCurrentUser() {
         return currentUser;
     }
 
-    public void setCurrentUser(String currentUser) {
+    public void setCurrentUser(UserDtoName currentUser) {
         this.currentUser = currentUser;
     }
 
@@ -112,13 +103,6 @@ public class BookDto {
         this.locationInLibrary = locationInLibrary;
     }
 
-    public List<AuthorDto> getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(List<AuthorDto> authors) {
-        this.authors = authors;
-    }
 
     public Long getId() {
         return id;
@@ -128,11 +112,27 @@ public class BookDto {
         this.id = id;
     }
 
-    public LocalDateTime getBorrowDate() {
-        return borrowDate;
+    public List<NewAuthorDto> getAuthors() {
+        return authors;
     }
 
-    public void setBorrowDate(LocalDateTime borrowDate) {
-        this.borrowDate = borrowDate;
+    public void setAuthors(List<NewAuthorDto> authors) {
+        this.authors = authors;
+    }
+
+    public List<NewCategoryDto> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<NewCategoryDto> categories) {
+        this.categories = categories;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
     }
 }

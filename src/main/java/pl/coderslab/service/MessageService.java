@@ -2,6 +2,8 @@ package pl.coderslab.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.coderslab.dto.MessageDto;
 import pl.coderslab.dto.UserDto;
 import pl.coderslab.entity.Message;
@@ -11,7 +13,8 @@ import pl.coderslab.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Service
+@Transactional
 public class MessageService {
 
     @Autowired

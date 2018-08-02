@@ -2,8 +2,11 @@ package pl.coderslab.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.coderslab.dto.AuthorDto;
 import pl.coderslab.dto.BookDto;
+import pl.coderslab.dto.NewAuthorDto;
 import pl.coderslab.entity.Author;
 import pl.coderslab.entity.Book;
 import pl.coderslab.repository.AuthorRepository;
@@ -12,7 +15,8 @@ import pl.coderslab.repository.BookRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Service
+@Transactional
 public class AuthorService {
 
     @Autowired
@@ -40,7 +44,7 @@ public class AuthorService {
         authorRepository.save(editedAuthor);
     }
 
-    public List<AuthorDto> allAuthors() {
+    public List<AuthorDto> findAll() {
         List<AuthorDto> authors = new ArrayList<>();
         for (Author author : authorRepository.findAll()) {
             authors.add(new AuthorDto(author));
@@ -49,4 +53,42 @@ public class AuthorService {
         return authors;
     }
 
+    public List<NewAuthorDto> findNewAll() {
+        List<NewAuthorDto> authors = new ArrayList<>();
+        for (Author author : authorRepository.findAll()) {
+            authors.add(new NewAuthorDto(author));
+        }
+
+        return authors;
+    }
+
+    public void addAuthors(List<NewAuthorDto> authors) {
+        List<Author> newAuthors = new ArrayList<>();
+        for (NewAuthorDto authorDto : authors) {
+            Author newAuthor = new Author();
+            newAuthor.setFirstName(authorDto.getFirstName());
+            newAuthor.setLastName(authorDto.getLastName());
+            newAuthors.add(newAuthor);
+        }
+        authorRepository.save(newAuthors);
+    }
+
+
+    public List<Author> getAuthors(List<NewAuthorDto> authors) {
+        List<Author> returnAuthors = new ArrayList<>();
+        for (NewAuthorDto authorDto : authors) {
+            returnAuthors.add(authorRepository.findAuthorByFirstNameEqualsAndLastNameEquals
+                    (authorDto.getFirstName(), authorDto.getLastName()));
+        }
+
+        return returnAuthors;
+    }
+
+    public void addAuthor(NewAuthorDto additionalAuthor) {
+        Author author = new Author();
+        author.setFirstName(additionalAuthor.getFirstName());
+        author.setLastName(additionalAuthor.getLastName());
+
+        authorRepository.save(author);
+    }
 }

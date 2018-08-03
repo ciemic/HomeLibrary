@@ -26,7 +26,7 @@ public class BookDto {
     private UserDtoName currentUser;
     private LocationDto locationInLibrary;
     private String publisher;
-
+    private String series;
 
     public BookDto(Book book) {
         setId(book.getId());
@@ -48,6 +48,7 @@ public class BookDto {
         setLocationInLibrary(new LocationDto(book.getLocationInLibrary()));
         setCurrentUser(new UserDtoName(book.getCurrentUser()));
         setPublisher(book.getPublisher());
+        setSeries(book.getSeries());
     }
 
     public BookDto() {
@@ -134,5 +135,13 @@ public class BookDto {
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
+    }
+
+    public String getSeries() {
+        return series;
+    }
+
+    public void setSeries(String series) {
+        this.series = series;
     }
 }

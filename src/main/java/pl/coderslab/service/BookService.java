@@ -65,12 +65,13 @@ public class BookService {
             book.setAuthors(authorService.getAuthors(newBookDto.getAuthors()));
         }
         book.setTitle(newBookDto.getTitle());
+        book.setSeries(newBookDto.getSeries());
         book.setPublisher(newBookDto.getPublisher());
         book.setIsbn(newBookDto.getIsbn());
         book.setDescription(newBookDto.getDescription());
         book.setBarcode(newBookDto.getBarcode());
         book.setLocationInLibrary(locationService.getLocation(newBookDto.getNewLocationDto()));
-        if (newBookDto.getAdditionalAuthor() != null) {
+        if (newBookDto.getAdditionalAuthor().getFirstName().length() > 0 && newBookDto.getAdditionalAuthor().getLastName().length() > 0) {
             authorService.addAuthor(newBookDto.getAdditionalAuthor());
             Author author = authorRepository.findAuthorByFirstNameEqualsAndLastNameEquals(
                     newBookDto.getAdditionalAuthor().getFirstName(),
@@ -82,7 +83,7 @@ public class BookService {
             authors.add(author);
             book.setAuthors(authors);
         }
-        if (newBookDto.getAdditionalCategory() != null) {
+        if (newBookDto.getAdditionalCategory().getName().length() > 0) {
             categoryService.addCategory(newBookDto.getAdditionalCategory());
             Category category = categoryRepository.findByName(newBookDto.getAdditionalCategory().getName());
             List<Category> categories = book.getCategories();
@@ -115,6 +116,8 @@ public class BookService {
         book.setTitle(bookDto.getTitle());
         book.setIsbn(bookDto.getIsbn());
         book.setBarcode(bookDto.getBarcode());
+        book.setSeries(bookDto.getSeries());
+        book.setPublisher(bookDto.getPublisher());
         List<Author> authors = new ArrayList<>();
         for (NewAuthorDto authorDto : bookDto.getAuthors()) {
             authors.add(authorRepository
@@ -148,5 +151,9 @@ public class BookService {
         Book book = bookRepository.findById(id);
         book.setCurrentUser(null);
         bookRepository.save(book);
+    }
+
+    public BookDto findById(Long id) {
+        return new BookDto(bookRepository.findById(id));
     }
 }

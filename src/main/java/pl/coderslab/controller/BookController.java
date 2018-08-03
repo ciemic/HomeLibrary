@@ -81,4 +81,11 @@ public class BookController {
 
         return "redirect:/book";
     }
+
+    @GetMapping("/details/{id}")
+    public String detailsBook(@PathVariable Long id, Model model) {
+        model.addAttribute("book",bookService.findById(id));
+
+        return "book/details";
+    }
 }

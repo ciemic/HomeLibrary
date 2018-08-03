@@ -12,7 +12,7 @@ public class LoginController {
 
     @GetMapping("")
     public String test(){
-        return "home";
+        return "/book/allbooks";
     }
     @GetMapping("/access-denied")
     public String accessDenied(){

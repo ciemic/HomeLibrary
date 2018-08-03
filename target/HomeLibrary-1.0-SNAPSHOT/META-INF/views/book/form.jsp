@@ -38,38 +38,26 @@
                 <form:form method="post" modelAttribute="book">
                     <div class="form-group ">
                         <label class="control-label requiredField" for="title">
-                            title
+                            Title
                             <span class="asteriskField">
         *
        </span>
                         </label>
-                        <form:input path="title" class="form-control" id="title"  placeholder="book title" type="text"/>
+                        <form:input path="title" class="form-control" id="title" type="text"/>
                     </div>
                     <div class="form-group ">
-                        <label class="control-label " for="Author.firstName">
-                            Author first name
+                        <label class="control-label " for="series">
+                            Series
                         </label>
-                        <form:input path="additionalAuthor.firstName" class="form-control" id="Author.firstName"
+                        <form:input path="series" class="form-control" id="series"
                                     type="text"/>
                     </div>
                     <div class="form-group ">
-                        <label class="control-label " for="Author.lastName">
-                            Author last name
+                        <label class="control-label " for="publisher">
+                            Publisher
                         </label>
-                        <form:input path="additionalAuthor.lastName" class="form-control" id="Author.lastName"
+                        <form:input path="publisher" class="form-control" id="publisher"
                                     type="text"/>
-                    </div>
-                    <div class="form-group ">
-                        <label class="control-label requiredField" for="isbn">
-                            ISBN
-                        </label>
-                        <form:input path="isbn" class="form-control" id="isbn" type="text"/>
-                    </div>
-                    <div class="form-group ">
-                        <label class="control-label " for="description">
-                            Description
-                        </label>
-                        <form:input path="description" class="form-control" id="description" type="text"/>
                     </div>
                     <div class="form-group ">
                         <label class="control-label " for="authors">
@@ -81,6 +69,44 @@
                         <form:errors path="authors"/>
                     </div>
                     <div class="form-group ">
+                        <label class="control-label " for="Author.firstName">
+                            Additional author first name
+                        </label>
+                        <form:input path="additionalAuthor.firstName" class="form-control" id="Author.firstName"
+                                    type="text"/>
+                    </div>
+                    <div class="form-group ">
+                        <label class="control-label " for="Author.lastName">
+                            Additional author last name
+                        </label>
+                        <form:input path="additionalAuthor.lastName" class="form-control" id="Author.lastName"
+                                    type="text"/>
+                    </div>
+                    <div class="form-group ">
+                        <label class="control-label requiredField" for="isbn">
+                            ISBN
+                            <span class="asteriskField">
+        *
+       </span>
+
+                        </label>
+                        <form:input path="isbn" class="form-control" id="isbn" type="text"/>
+                    </div>
+                    <div class="form-group ">
+                        <label class="control-label " for="description">
+                            Description
+                        </label>
+                        <form:input path="description" class="form-control" id="description" type="text"/>
+                    </div>
+
+                    <div class="form-group ">
+                        <label class="control-label " for="additionalCategory">
+                            Additional category
+                        </label>
+                        <form:input path="additionalCategory.name" class="form-control" id="additionalCategory"
+                                    type="text"/>
+                    </div>
+                    <div class="form-group ">
                         <label class="control-label " for="categories">
                             Select categories
                         </label>
@@ -89,13 +115,7 @@
                         </form:select>
                         <form:errors path="categories"/>
                     </div>
-                    <div class="form-group ">
-                        <label class="control-label " for="additionalCategory">
-                            Additional category
-                        </label>
-                        <form:input path="additionalCategory.name" class="form-control" id="additionalCategory"
-                                    type="text"/>
-                    </div>
+
                     <div class="form-group ">
                         <label class="control-label requiredField" for="newLocationDto.shelf">
                             Location - shelf

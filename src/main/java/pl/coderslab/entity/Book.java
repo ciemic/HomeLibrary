@@ -33,6 +33,7 @@ public class Book extends AbstractEntity {
     @ManyToOne
     private Location locationInLibrary;
     private String publisher;
+    private String series;
 
     private LocalDateTime borrowDate;
 
@@ -127,5 +128,13 @@ public class Book extends AbstractEntity {
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
+    }
+
+    public String getSeries() {
+        return series;
+    }
+
+    public void setSeries(String series) {
+        this.series = series;
     }
 }

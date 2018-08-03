@@ -66,6 +66,7 @@
                             <button type="submit" class="btn btn-success">Login</button>
                         </div>
                     </div>
+                    <div class="btn btn-success"><a href="/register"> register</a></div>
                 </form:form>
             </div>
         </div>

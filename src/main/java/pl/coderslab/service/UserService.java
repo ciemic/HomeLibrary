@@ -32,19 +32,6 @@ public class UserService {
     @Autowired
     EntityManager em;
 
-//    public void addUser(User user){
-//        String hashedPassword = BCrypt.hashpw( user.getPassword(), BCrypt.gensalt());
-//        user.setPassword(hashedPassword);
-//        userRepository.save(user);
-//    }
-//
-//    public boolean checkLogin(String username, String password){
-//        User user = userRepository.findByUsername(username);
-//        if(user != null){
-//            return BCrypt.checkpw(password, user.getPassword());
-//        }
-//        return false;
-//    }
 
     public UserDto getLoggedUser() {
 

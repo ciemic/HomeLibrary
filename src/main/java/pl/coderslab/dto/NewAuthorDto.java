@@ -12,9 +12,9 @@ import java.util.List;
 public class NewAuthorDto {
 
     private Long id;
-    @NotBlank
+
     private String firstName;
-    @NotBlank
+
     private String lastName;
 
 

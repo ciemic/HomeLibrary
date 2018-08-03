@@ -1,7 +1,6 @@
 package pl.coderslab.dto;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.List;
 
@@ -19,7 +18,7 @@ public class NewBookDto {
     private NewCategoryDto additionalCategory;
     private NewLocationDto newLocationDto;
     private String publisher;
-
+    private String series;
     public NewBookDto() {
     }
 
@@ -101,5 +100,13 @@ public class NewBookDto {
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
+    }
+
+    public String getSeries() {
+        return series;
+    }
+
+    public void setSeries(String series) {
+        this.series = series;
     }
 }

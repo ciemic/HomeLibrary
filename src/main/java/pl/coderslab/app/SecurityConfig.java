@@ -31,8 +31,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery("select username, authority from authorities where username=?")
                 .passwordEncoder(passwordEncoder)
         ;
-
-
     }
 
 
@@ -40,11 +38,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-
                 //.anyRequest().authenticated()
-                .antMatchers("/**").hasRole("USER")
+                .antMatchers("/book/*").hasRole("USER")
                 .antMatchers("/systems/**").hasRole("ADMIN")
-                .antMatchers("/register/**").permitAll()
+                .antMatchers("/register").anonymous()
+                .antMatchers("/*").hasRole("USER")
                 .and()
                 .formLogin()
                 .loginPage("/showMyLoginPage")

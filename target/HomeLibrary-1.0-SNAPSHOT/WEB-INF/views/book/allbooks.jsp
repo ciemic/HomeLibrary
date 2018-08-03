@@ -22,7 +22,7 @@
 <div class="table-responsive">
     <div class="button"> <a href="/book/form">add new book</a></div>
 
-    <table id="myTable" class="table table-striped">
+    <table id="myTable" class="table table-striped ">
         <thead>
 
         <tr>

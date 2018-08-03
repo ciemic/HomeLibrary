@@ -67,12 +67,11 @@ public class UserService {
     public List<UserDtoName> findAll() {
         List<User> users = userRepository.findAll();
         List<UserDtoName> returnList = new ArrayList<>();
-        for(User user:users)
+        for (User user : users)
             returnList.add(new UserDtoName(user));
 
         return returnList;
     }
-
 
 
     public void registerUser(NewUserDto newUser) {
@@ -82,6 +81,7 @@ public class UserService {
         user.setLastName(newUser.getLastName());
         user.setFirstName(newUser.getFirstName());
         user.setEmail(newUser.getEmail());
+
 
         String hashedPassword = passwordEncoder.encode(newUser.getPassword());
         em.createNativeQuery("INSERT INTO home_library.users VALUES (?,?,?)")
@@ -97,5 +97,12 @@ public class UserService {
                 .executeUpdate();
 
         userRepository.save(user);
+    }
+
+    public boolean findByUsername(String username) {
+        User user = userRepository.findByUsername(username);
+        if(user!=null)
+            return true;
+        return false;
     }
 }

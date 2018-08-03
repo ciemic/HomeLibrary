@@ -59,11 +59,11 @@ public class BookController {
     }
 
     @PostMapping("/form")
-    public String form(@Valid NewBookDto book, BindingResult validResult, Model model) {
-        if (validResult.hasErrors()) {
-            model.addAttribute("book", book);
-            return "book/form";
-        }
+    public String form( NewBookDto book, Model model) {
+//        if (validResult.hasErrors()) {
+//            model.addAttribute("book", book);
+//            return "book/form";
+//        }
         bookService.addNewBook(book);
         return "redirect:/book";
     }

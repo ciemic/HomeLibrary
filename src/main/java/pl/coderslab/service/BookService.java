@@ -149,8 +149,10 @@ public class BookService {
 
     public void deleteCurrentUser(Long id) {
         Book book = bookRepository.findById(id);
-        book.setCurrentUser(null);
-        bookRepository.save(book);
+        if (userService.getLoggedUser().getUsername().equals(book.getCurrentUser().getUsername())) {
+            book.setCurrentUser(null);
+            bookRepository.save(book);
+        }
     }
 
     public BookDto findById(Long id) {

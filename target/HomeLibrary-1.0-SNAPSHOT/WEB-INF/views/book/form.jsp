@@ -9,6 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+
     <title>test form</title>
     <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
     <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css"/>
@@ -88,7 +89,6 @@
                             <span class="asteriskField">
         *
        </span>
-
                         </label>
                         <form:input path="isbn" class="form-control" id="isbn" type="text"/>
                     </div>
@@ -110,7 +110,8 @@
                         <label class="control-label " for="categories">
                             Select categories
                         </label>
-                        <form:select path="categories" items="${categories}" class="select form-control" id="categories"
+                        <form:select path="categories" items="${categories}" class="select form-control"
+                                     id="categories"
                                      itemValue="id" itemLabel="name" name="categories">
                         </form:select>
                         <form:errors path="categories"/>
@@ -135,9 +136,9 @@
                     </div>
                     <div class="form-group">
                         <div>
-                            <button class="btn btn-primary " name="submit" type="submit">
+                            <form:button class="btn btn-primary " name="submit" type="submit">
                                 Submit
-                            </button>
+                            </form:button>
                         </div>
                     </div>
                 </form:form>

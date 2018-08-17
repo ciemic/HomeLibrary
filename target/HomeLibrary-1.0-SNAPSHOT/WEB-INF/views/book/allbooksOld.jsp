@@ -2,35 +2,40 @@
 <%--
   Created by IntelliJ IDEA.
   User: michal
-  Date: 17.08.18
-  Time: 14:37
+  Date: 31.07.18
+  Time: 15:00
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>test</title>
-    <c:import url="${pageContext.request.contextPath}/resources/fragments/header.jsp"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>Title</title>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <style rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+    <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"/>
+    <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 </head>
-<body>
-<c:import url="${pageContext.request.contextPath}/resources/fragments/navibar.jsp"/>
+<body class="dataTables">
 
-<!-- tabela -->
-<div class="container mt-4">
-    <table id="dataTable" class="table table-striped table-hover table-responsive">
+<div class="table-responsive container">
+     <a class="btn btn-primary" href="/book/form">add new book</a>
+
+    <table id="myTable" class="table table-striped ">
         <thead>
+
         <tr>
-            <th scope="col">ID
-                <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-            <th scope="col">Title<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-            <th scope="col">Author<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-            <th scope="col">Category</th>
-            <th scope="col">Publisher</th>
-            <th scope="col">Current user</th>
-            <th scope="col">details</th>
-            <th scope="col">Borrow</th>
-            <th scope="col">Return</th>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th>Publisher</th>
+            <th>Current user</th>
+            <th>details</th>
+            <th>Borrow</th>
+            <th>Return</th>
         </tr>
         </thead>
         <tbody>
@@ -61,22 +66,15 @@
                 </td>
             </tr>
         </c:forEach>
+
         </tbody>
     </table>
+
 </div>
-
-
-<c:import url="${pageContext.request.contextPath}/resources/fragments/footer.jsp"/>
-<!-- MDBootstrap Datatables  -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/addons/datatables.min.js"></script>
-
-
+</body>
 <script>
     $(document).ready(function () {
-        $('#dataTable').DataTable();
-        $('.dataTables_length').addClass('bs-select');
-        console.log('hello')
+        $('#myTable').dataTable();
     });
 </script>
-</body>
 </html>

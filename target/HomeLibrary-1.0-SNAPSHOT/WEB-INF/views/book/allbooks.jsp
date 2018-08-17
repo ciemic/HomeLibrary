@@ -19,8 +19,9 @@
 
 </head>
 <body class="dataTables">
-<div class="table-responsive">
-    <div class="button"> <a href="/book/form">add new book</a></div>
+
+<div class="table-responsive container">
+     <a class="btn btn-primary" href="/book/form">add new book</a>
 
     <table id="myTable" class="table table-striped ">
         <thead>

@@ -26,12 +26,9 @@ public class User extends AbstractEntity {
     private String firstName;
     private String lastName;
 
-    @Column(columnDefinition = "sent_messages")
-    @OneToMany(mappedBy = "sender", cascade = CascadeType.REMOVE)
-    private List<Message> sentMessages;
-    @Column(columnDefinition = "received_messages")
-    @OneToMany(mappedBy = "receiver", cascade = CascadeType.REMOVE)
-    private List<Message> receivedMessages;
+
+    @OneToMany
+    private List<History> historyList;
 
 
     public User() {
@@ -70,24 +67,7 @@ public class User extends AbstractEntity {
     }
 
 
-    public List<Message> getSentMessages() {
-        return sentMessages;
-    }
-
-    public void setSentMessages(List<Message> sentMessages) {
-        this.sentMessages = sentMessages;
-    }
-
-    public List<Message> getReceivedMessages() {
-        return receivedMessages;
-    }
-
-    public void setReceivedMessages(List<Message> receivedMessages) {
-        this.receivedMessages = receivedMessages;
-    }
-
-
-    public String getUsername() {
+       public String getUsername() {
         return username;
     }
 
@@ -96,4 +76,19 @@ public class User extends AbstractEntity {
     }
 
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<History> getHistoryList() {
+        return historyList;
+    }
+
+    public void setHistoryList(List<History> historyList) {
+        this.historyList = historyList;
+    }
 }

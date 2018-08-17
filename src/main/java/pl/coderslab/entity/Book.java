@@ -34,8 +34,9 @@ public class Book extends AbstractEntity {
     private Location locationInLibrary;
     private String publisher;
     private String series;
+    @OneToMany
+    private List<History> historyList;
 
-    private LocalDateTime borrowDate;
 
     public Book() {
     }
@@ -114,14 +115,6 @@ public class Book extends AbstractEntity {
         this.id = id;
     }
 
-    public LocalDateTime getBorrowDate() {
-        return borrowDate;
-    }
-
-    public void setBorrowDate(LocalDateTime borrowingDate) {
-        this.borrowDate = borrowingDate;
-    }
-
     public String getPublisher() {
         return publisher;
     }
@@ -136,5 +129,13 @@ public class Book extends AbstractEntity {
 
     public void setSeries(String series) {
         this.series = series;
+    }
+
+    public List<History> getHistoryList() {
+        return historyList;
+    }
+
+    public void setHistoryList(List<History> historyList) {
+        this.historyList = historyList;
     }
 }

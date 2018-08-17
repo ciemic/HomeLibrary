@@ -5,12 +5,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.coderslab.dto.*;
-import pl.coderslab.entity.Author;
-import pl.coderslab.entity.Book;
-import pl.coderslab.entity.Category;
-import pl.coderslab.entity.User;
+import pl.coderslab.entity.*;
 import pl.coderslab.repository.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +30,9 @@ public class BookService {
 
     @Autowired
     LocationRepository locationRepository;
+
+    @Autowired
+    HistoryRepository historyRepository;
     @Autowired
     AuthorService authorService;
     @Autowired
@@ -49,10 +50,6 @@ public class BookService {
             bookDtos.add(new BookDto(book));
 
         return bookDtos;
-    }
-
-    public void addBook(BookDto bookDto) {
-        saveBook(bookDto);
     }
 
     public void addNewBook(NewBookDto newBookDto) {
@@ -101,57 +98,70 @@ public class BookService {
         bookRepository.save(book);
     }
 
-    public void editBook(BookDto bookDto) {
-        saveBook(bookDto);
-    }
+//    public void editBook(BookDto bookDto) {
+//        saveBook(bookDto);
+//    }
 
-    public void deleteBook(BookDto bookDto) {
-        Book deletedBook = bookRepository.findById(bookDto.getId());
+//    public void deleteBook(BookDto bookDto) {
+//        Book deletedBook = bookRepository.findById(bookDto.getId());
+//
+//        bookRepository.delete(deletedBook);
+//    }
 
-        bookRepository.delete(deletedBook);
-    }
-
-    private void saveBook(BookDto bookDto) {
-        Book book = new Book();
-        book.setTitle(bookDto.getTitle());
-        book.setIsbn(bookDto.getIsbn());
-        book.setBarcode(bookDto.getBarcode());
-        book.setSeries(bookDto.getSeries());
-        book.setPublisher(bookDto.getPublisher());
-        List<Author> authors = new ArrayList<>();
-        for (NewAuthorDto authorDto : bookDto.getAuthors()) {
-            authors.add(authorRepository
-                    .findAuthorByFirstNameEqualsAndLastNameEquals(authorDto.getFirstName(), authorDto.getLastName()));
-        }
-        book.setAuthors(authors);
-
-        List<Category> categories = new ArrayList<>();
-        for (NewCategoryDto categoryDto : bookDto.getCategories()) {
-            categories.add(categoryRepository.findByName(categoryDto.getName()));
-        }
-        book.setCategories(categories);
-
-        book.setCurrentUser(userRepository.findByUsername(bookDto.getCurrentUser().getUsername()));
-        book.setDescription(bookDto.getDescription());
-        book.setLocationInLibrary(locationRepository.findById(bookDto.getLocationInLibrary().getId()));
-
-        bookRepository.save(book);
-    }
+//    private void saveBook(BookDto bookDto) {
+//        Book book = new Book();
+//        book.setTitle(bookDto.getTitle());
+//        book.setIsbn(bookDto.getIsbn());
+//        book.setBarcode(bookDto.getBarcode());
+//        book.setSeries(bookDto.getSeries());
+//        book.setPublisher(bookDto.getPublisher());
+//        List<Author> authors = new ArrayList<>();
+//        for (NewAuthorDto authorDto : bookDto.getAuthors()) {
+//            authors.add(authorRepository
+//                    .findAuthorByFirstNameEqualsAndLastNameEquals(authorDto.getFirstName(), authorDto.getLastName()));
+//        }
+//        book.setAuthors(authors);
+//
+//        List<Category> categories = new ArrayList<>();
+//        for (NewCategoryDto categoryDto : bookDto.getCategories()) {
+//            categories.add(categoryRepository.findByName(categoryDto.getName()));
+//        }
+//        book.setCategories(categories);
+//
+//        book.setCurrentUser(userRepository.findByUsername(bookDto.getCurrentUser().getUsername()));
+//        book.setDescription(bookDto.getDescription());
+//        book.setLocationInLibrary(locationRepository.findById(bookDto.getLocationInLibrary().getId()));
+//
+//        bookRepository.save(book);
+//    }
 
     public void addCurrentUser(Long id) {
         Book book = bookRepository.findById(id);
         if (book.getCurrentUser() == null) {
             User user = userRepository.findByUsername(userService.getLoggedUser().getUsername());
             book.setCurrentUser(user);
+            History history = new History(user, book, false);
+            historyRepository.save(history);
+            book.getHistoryList().add(history);
+            user.getHistoryList().add(history);
+            userRepository.save(user);
             bookRepository.save(book);
         }
     }
 
     public void deleteCurrentUser(Long id) {
         Book book = bookRepository.findById(id);
-        if (userService.getLoggedUser().getUsername().equals(book.getCurrentUser().getUsername())) {
+        User user = userRepository.findByUsername(userService.getLoggedUser().getUsername());
+        if (user.getUsername().equals(book.getCurrentUser().getUsername())) {
+
+            History history = historyRepository
+                    .findFirstByBookEqualsAndUserEqualsOrderByLastModificationDate(book, user);
+            history.setReturnDate(LocalDateTime.now());
+            historyRepository.save(history);
+
             book.setCurrentUser(null);
             bookRepository.save(book);
+            userRepository.save(user);
         }
     }
 

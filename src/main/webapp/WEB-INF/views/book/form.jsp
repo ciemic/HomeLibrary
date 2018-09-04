@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: michal
@@ -11,140 +12,101 @@
 <head>
 
     <title>test form</title>
-    <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
-    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css"/>
+    <c:import url="${pageContext.request.contextPath}/resources/fragments/header.jsp"/>
 
-    <!-- Inline CSS based on choices in "Settings" tab -->
-    <style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form {
-        font-family: Arial, Helvetica, sans-serif;
-        color: black
-    }
-
-    .bootstrap-iso form button, .bootstrap-iso form button:hover {
-        color: white !important;
-    }
-
-    .asteriskField {
-        color: red;
-    }</style>
 
 </head>
+
+
 <body>
+<c:import url="${pageContext.request.contextPath}/resources/fragments/navibar.jsp"/>
+<div class="container">
+    <!-- tu są klasy justify-content-md-center czyli wycentrowanie oraz mt-4 czyli margin-top-4 ,
+    jak zmienisz cyfrę to będzie większy odstęp na górze albo mniejszy-->
+    <div class="row justify-content-md-left mt-2">
+        <div class="col-md-6">
 
-<!-- HTML Form (wrapped in a .bootstrap-iso div) -->
-<div class="bootstrap-iso">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <form:form method="post" modelAttribute="book">
-                    <div class="form-group ">
-                        <label class="control-label requiredField" for="title">
-                            Title
-                            <span class="asteriskField">
-        *
-       </span>
-                        </label>
-                        <form:input path="title" class="form-control" id="title" type="text"/>
-                    </div>
-                    <div class="form-group ">
-                        <label class="control-label " for="series">
-                            Series
-                        </label>
-                        <form:input path="series" class="form-control" id="series"
-                                    type="text"/>
-                    </div>
-                    <div class="form-group ">
-                        <label class="control-label " for="publisher">
-                            Publisher
-                        </label>
-                        <form:input path="publisher" class="form-control" id="publisher"
-                                    type="text"/>
-                    </div>
-                    <div class="form-group ">
-                        <label class="control-label " for="authors">
-                            Select author
-                        </label>
-                        <form:select path="authors" items="${authors}" class="select form-control" itemValue="id"
-                                     itemLabel="lastName" id="authors" multiple="true">
-                        </form:select>
-                        <form:errors path="authors"/>
-                    </div>
-                    <div class="form-group ">
-                        <label class="control-label " for="Author.firstName">
-                            Additional author first name
-                        </label>
-                        <form:input path="additionalAuthor.firstName" class="form-control" id="Author.firstName"
-                                    type="text"/>
-                    </div>
-                    <div class="form-group ">
-                        <label class="control-label " for="Author.lastName">
-                            Additional author last name
-                        </label>
-                        <form:input path="additionalAuthor.lastName" class="form-control" id="Author.lastName"
-                                    type="text"/>
-                    </div>
-                    <div class="form-group ">
-                        <label class="control-label requiredField" for="isbn">
-                            ISBN
-                            <span class="asteriskField">
-        *
-       </span>
-                        </label>
-                        <form:input path="isbn" class="form-control" id="isbn" type="text"/>
-                    </div>
-                    <div class="form-group ">
-                        <label class="control-label " for="description">
-                            Description
-                        </label>
-                        <form:input path="description" class="form-control" id="description" type="text"/>
-                    </div>
+            <form:form class="text-center border border-light p-5 form-inline" modelAttribute="book">
 
-                    <div class="form-group ">
-                        <label class="control-label " for="additionalCategory">
-                            Additional category
-                        </label>
-                        <form:input path="additionalCategory.name" class="form-control" id="additionalCategory"
-                                    type="text"/>
-                    </div>
-                    <div class="form-group ">
-                        <label class="control-label " for="categories">
-                            Select categories
-                        </label>
-                        <form:select path="categories" items="${categories}" class="select form-control"
-                                     id="categories"
-                                     itemValue="id" itemLabel="name" name="categories">
-                        </form:select>
-                        <form:errors path="categories"/>
-                    </div>
+                <div class="col-8">
+                    <p class="h4 mb-4">Add new book</p>
+                </div>
+                <!-- title -->
+                <div class="form-group row">
+                    <label for="title" class="col-4 col-form-label">Title</label>
+                    <div class="col-8">
+                        <form:input path="title" type="text" id="title" class="form-control mb-4" placeholder="Title"
 
-                    <div class="form-group ">
-                        <label class="control-label requiredField" for="newLocationDto.shelf">
-                            Location - shelf
-                            <span class="asteriskField">
-        *
-       </span>
-                        </label>
-                        <form:input path="newLocationDto.shelf" class="form-control" id="newLocationDto.shelf"
-                                    name="newLocationDto.shelf" type="text"/>
+                        />
                     </div>
-                    <div class="form-group ">
-                        <label class="control-label " for="newLocationDto.details">
-                            Location details
-                        </label>
-                        <form:input path="newLocationDto.details" class="form-control" id="newLocationDto.details"
-                                    name="newLocationDto.details" type="text"/>
+                </div>
+                <!-- series -->
+                <div class="form-group row">
+                    <label for="series" class="col-4 col-form-label">Series</label>
+                    <div class="col-8">
+                        <form:input path="series" type="text" id="series" class="form-control mb-4" placeholder="Series"
+                                    autocomplete="on"/>
                     </div>
-                    <div class="form-group">
-                        <div>
-                            <form:button class="btn btn-primary " name="submit" type="submit">
-                                Submit
-                            </form:button>
-                        </div>
+                </div>
+                <!-- publisher -->
+                <div class="form-group row">
+                    <label for="publisher" class="col-4 col-form-label">Publisher</label>
+                    <div class="col-8">
+                        <form:input path="publisher" type="text" id="publisher" class="form-control mb-4"
+                                    placeholder="Publisher" autocomplete="true"/>
                     </div>
-                </form:form>
-            </div>
+                </div>
+                <!-- Author Name -->
+                <div class="form-group row">
+                    <label for="authors.firstName" class="col-4 col-form-label">Author first name</label>
+                    <div class="col-8">
+                        <form:input path="additionalAuthor.firstName" type="text" id="authors.firstName"
+                                    class="form-control mb-4" placeholder="Author first name" autocomplete="true"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="author.lastName" class="col-4 col-form-label">Author first name</label>
+                    <div class="col-8">
+                        <form:input path="additionalAuthor.lastName" type="text" id="author.lastName"
+                                    class="form-control mb-4" placeholder="Author last name" autocomplete="true"/>
+                    </div>
+                </div>
+                <!-- Category -->
+                <div class="form-group row">
+                    <label for="category" class="col-4 col-form-label">Category</label>
+                    <div class="col-8">
+                        <form:input path="additionalCategory.name" type="text" id="category" class="form-control mb-4"
+                                    placeholder="Category" autocomplete="true"/>
+                    </div>
+                </div>
+                <!-- Location -->
+                <div class="form-group row">
+                    <label for="location" class="col-4 col-form-label">Location</label>
+                    <div class="col-8">
+                        <form:input path="newLocationDto.shelf" type="text" id="location" class="form-control mb-4"
+                                    placeholder="Location" autocomplete="true"/>
+                    </div>
+                </div>
+                <!-- Add button -->
+                <button class=" btn btn-info btn-block my-4" type="submit">Add</button>
+
+
+            </form:form>
+            <!-- Default form login -->
+
         </div>
     </div>
 </div>
-</body>
-</html>
+
+
+<c:import url="${pageContext.request.contextPath}/resources/fragments/footer.jsp"/>
+<script>
+    $(document).ready(function() {
+        $( "#series" ).autocomplete({
+            source: ${categories}
+        });
+    });
+</script>
+
+/body>
+< /html>
